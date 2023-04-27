@@ -5,6 +5,7 @@ const { Category, Product } = require("../../models");
 
 router.get("/", (req, res) => {
   // find all categories
+  // be sure to include its associated Products
   Category.findAll({
     attributes: ["id", "category_name"],
     include: [
@@ -13,8 +14,15 @@ router.get("/", (req, res) => {
         attributes: ["id", "product_name", "price", "stock", "category_id"],
       },
     ],
-  });
-  // be sure to include its associated Products
+  })
+    //when the db is successful it sends a JSON response with the data to the client using res.json.
+    //We use catch to catch any errors and console log them
+    //We have used a HTTP 500, to send a JSON response to the client showing if a server error occured
+    .then((dbCategoryData) => res.json(dbCategoryData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.get("/:id", (req, res) => {
