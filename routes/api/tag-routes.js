@@ -1,12 +1,12 @@
 const router = require("express").Router();
+//imports the models from the models directory
 const { Tag, Product, ProductTag } = require("../../models");
 
 // The `/api/tags` endpoint
 
 //this is a GET ROUTE method that retrieves the data from the server
 router.get("/", (req, res) => {
-  // find all tags
-  // be sure to include its associated Product data
+  // uses the findAll() method to retrieve all tags which includes its associated product data
   Tag.findAll({
     attributes: ["id", "tag_name"],
     include: [
@@ -26,8 +26,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
+  // uses findOne() method to retrieve a single tage by its ID which includes its associated product data
   Tag.findOne({
     where: {
       id: req.params.id,
@@ -57,7 +56,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  // create a new tag
+  // uses the create() method to create a new tag
   Tag.create({
     tag_name: req.body.tag_name,
   })
@@ -69,7 +68,7 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  // update a tag's name by its `id` value
+  // uses update() method to update by it's ID
   Tag.update(req.body, {
     where: {
       id: req.params.id,
@@ -91,7 +90,7 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  // delete on tag by its `id` value
+  // uses the destroy() method to delete by its ID
   Tag.destroy({
     where: {
       id: req.params.id,
