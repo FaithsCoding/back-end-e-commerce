@@ -12,9 +12,9 @@ Product.init(
     // defines columns of the product table
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       primaryKey: true,
-      autoIncrementIdentity: true,
+      autoIncrement: true,
     },
     product_name: {
       type: DataTypes.STRING,
