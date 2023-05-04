@@ -88,8 +88,6 @@ router.post("/", (req, res) => {
         });
         return ProductTag.bulkCreate(productTagIdArr);
       }
-      // if no product tags, just respond
-      res.status(200).json(product);
     })
     .then((productTagIds) => res.status(200).json(productTagIds))
     .catch((err) => {
@@ -149,21 +147,19 @@ router.delete("/:id", (req, res) => {
   })
     .then((dbProductData) => {
       if (!dbProductData) {
-        res
-          .status(404)
-          .json({
-            message:
-              "We have not found a product for this id, please try again.",
-          });
+        res.status(404).json({
+          message: "We have not found a product for this id, please try again.",
+        });
         return;
       }
       res.json(dbProductData);
     })
-    //console log errors
+    //console logs the error
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });
 });
+
 
 module.exports = router;
